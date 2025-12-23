@@ -2,19 +2,18 @@ public abstract class Puzzles extends GameComponent implements Comparable <Puzzl
     protected int difficulty;
     protected boolean solved;
 
-    public abstract boolean attempSolve(String answer);
+    public abstract boolean attemptSolve(String answer);
 
-    public Puzzles Comparable(Puzzles other) {
-        if (this.difficulty > other.difficulty) {
-            return this;
-        }
-        else if (this.difficulty < other.difficulty) {
-            return other;
-        }
-        else {
-            System.out.println("Same difficulty.");
-            return null;
-        }
+    public Puzzles(int difficulty, boolean solved) {
+        this.difficulty = difficulty;
+        this.solved = solved;
+    }
+
+    @Override
+    public int compareTo(Puzzles other) {
+        if (this.difficulty > other.difficulty) return 1;
+        if (this.difficulty < other.difficulty) return -1;
+        return 0;
     }
 
     @Override
