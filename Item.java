@@ -1,14 +1,14 @@
-public class Items extends GameComponent implements Collectible, Comparable<Items> {
+public class Item extends GameComponent implements Collectible, Comparable<Item> {
     private int value;
     private String itemType;
 
-    public Items(String name, int value, String itemType){
+    public Item(String name, int value, String itemType){
         this.name = name;
         this.value = value;
         this.itemType = itemType;
     }
     // It can be: Key, Tool, Clue
-    public int compareTo(Items other){
+    public int compareTo(Item other){
         if(this.value < other.value){
             return -1;
         }
