@@ -1,4 +1,4 @@
-package CS360
+package CS360-Escape-Ro;
 
 import java.util.ArrayList;
 import java.util.Stack;
@@ -91,13 +91,12 @@ public class Player {
      */
     public boolean hasKey(String keyName) {
         for (Item item : inventory) {
-            if (item.getItemType().equalsIgnoreCase("KEY")
-                    && item.getName().equalsIgnoreCase(keyName)) {
+            if (item.getItemType().equalsIgnoreCase("KEY") && item.getName().equalsIgnoreCase(keyName)) {
                 return true;
             }
         }
         return false;
-    }
+    } 
 
     /* =========================
        Inventory methods
@@ -114,9 +113,7 @@ public class Player {
 
         System.out.println("Inventory:");
         for (Item item : inventory) {
-            System.out.println("- " + item.getName()
-                    + " (value=" + item.getValue()
-                    + ", type=" + item.getItemType() + ")");
+            System.out.println("- " + item.getName() + " (value=" + item.getValue() + ", type=" + item.getItemType() + ")");
         }
     }
 
