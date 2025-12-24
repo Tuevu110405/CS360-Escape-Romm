@@ -26,5 +26,11 @@ public class Item extends GameComponent implements Collectible, Comparable<Item>
         System.out.println("Type: " + this.itemType);
         System.out.println("Value: " + this.value);
     }
+    public String getItemType(){
+        return itemType;
+    }
+    public int getValue(){
+        return value;
+    }
     
 }
