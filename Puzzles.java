@@ -23,4 +23,8 @@ public abstract class Puzzles extends GameComponent implements Comparable <Puzzl
         System.out.println("Difficulty: " + this.difficulty);
         System.out.println("Status: " + (this.solved ? "Solved" : "Not Solved"));
     }
+
+    boolean isSolved() {
+        return this.solved;
+    }
 }

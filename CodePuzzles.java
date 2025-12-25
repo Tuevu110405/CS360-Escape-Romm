@@ -32,6 +32,7 @@ public class CodePuzzles extends Puzzles {
 
     @Override
     public void inspect() {
+        System.out.println("===== Guess the code =====");
         System.out.println("Try to enter a number.");
         super.inspect();
     }
