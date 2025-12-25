@@ -1,3 +1,4 @@
+package cs360;
 public class CodePuzzles extends Puzzles {
     private int correctCode;
 

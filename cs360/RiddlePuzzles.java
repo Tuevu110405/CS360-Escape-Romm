@@ -1,3 +1,4 @@
+package cs360;
 import java.util.Scanner;
 
 public class RiddlePuzzles extends Puzzles {
