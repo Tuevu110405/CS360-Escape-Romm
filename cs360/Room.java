@@ -17,6 +17,10 @@ public class Room extends GameComponent {
     public void addContent(GameComponent component){
         contents.add(component);
     }
+    // add Room for connectedRooms 
+    public void addConnectedRooms(Room a){
+        connectedRooms.add(a);
+    }
     public boolean isExit(){
         return isExit;
     }
@@ -88,6 +92,22 @@ public class Room extends GameComponent {
                 if(nestedItem!=null){
                     return nestedItem;
                 }
+            }
+        }
+        return null;
+    }
+    public Room getConnectedRoom(String name) {
+        for (Room r : connectedRooms) {
+            if (r.getName().equalsIgnoreCase(name)) {
+                return r;
+            }
+        }
+        return null;
+    }
+    public Puzzles getpuzzle() {
+        for (GameComponent gc : contents) {
+            if (gc instanceof Puzzles) {
+                return (Puzzles) gc;
             }
         }
         return null;
