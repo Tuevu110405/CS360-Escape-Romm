@@ -1,3 +1,4 @@
+package cs360;
 public abstract class Puzzles extends GameComponent implements Comparable <Puzzles> {
     protected int difficulty;
     protected boolean solved;

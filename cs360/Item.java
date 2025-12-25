@@ -1,3 +1,5 @@
+package cs360;
+
 public class Item extends GameComponent implements Collectible, Comparable<Item> {
     private int value;
     private String itemType;
