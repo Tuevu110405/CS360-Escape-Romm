@@ -1,3 +1,4 @@
+package cs360;
 public abstract class GameComponent {
     protected String name;
 
