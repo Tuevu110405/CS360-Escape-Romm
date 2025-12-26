@@ -36,13 +36,18 @@ public class GameMenu {
         switch (command) {
 
             case "look":
-                player.getCurrentRoom().inspect();
+                player.getCurrentRoom().exploreRecursive(3);
                 break;
 
             case "move":
                 requireArg(parts, "move <roomName>");
                 Room nextRoom = player.getCurrentRoom().getConnectedRoom(parts[1]);
-                player.moveTo(nextRoom);
+                try{
+                    player.moveTo(nextRoom);
+                }
+                catch(LockedRoomException e){
+                    System.out.println(e.getMessage());
+                }
                 break;
 
             case "back":

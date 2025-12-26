@@ -40,12 +40,15 @@ public class Main {
         c.addContent(keyC);
         a.addConnectedRooms(b);
         b.addConnectedRooms(c);
+        b.setRequiredKeyName("keyA");
+        c.setRequiredKeyName("keyB");
     }
 
     public void run() {
         Player player = new Player(a);
         GameMenu menu = new GameMenu(player);
         menu.run();
+
     }
 
     public static void main(String[] args) {

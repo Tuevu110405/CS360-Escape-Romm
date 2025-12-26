@@ -13,9 +13,9 @@ public class CodePuzzles extends Puzzles {
             System.out.println("Correct answer. Congratulation.");
             return true;
         } else if (guess < this.correctCode) {
-            System.out.println("Your code is less than the answer code.");
+            System.out.println("Your code is less than the answer code. Your answer is far " + (this.correctCode - guess)+ " from the correct answer");
         } else {
-            System.out.println("Your code is greater than the answer code.");
+            System.out.println("Your code is greater than the answer code. Your answer is far " + (guess - this.correctCode)+ " from the correct answer");
         }
         return false;
     }

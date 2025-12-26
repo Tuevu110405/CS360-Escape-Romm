@@ -22,16 +22,18 @@ public class Player {
             throw new LockedRoomException("Room does not exist.");
         }
 
-        if (nextRoom.requiresKey()) {
+        else if (nextRoom.requiresKey()) {
             String keyName = nextRoom.getRequiredKeyName();
             if (!hasKey(keyName)) {
                 throw new LockedRoomException(
                         "Room is locked. You need key: " + keyName);
             }
         }
+        
 
         moveHistory.push(currentRoom);
         currentRoom = nextRoom;
+    
     }
 
     // move back to the room before

@@ -78,18 +78,25 @@ public void inspect() {
 }
 
 
-public void exploreRecursive(int depth){
+    public void exploreRecursive(int depth) {
         String indent = "";
-        for(int i = 0; i < depth; i++){
-            indent += " ";
+        for (int i = 0; i < depth; i++) {
+            indent += "  ";
         }
-        System.out.println(indent + "The Room: "+ getName());
-        for(GameComponent gc : contents){
-            if(gc instanceof Room){
-                ((Room)gc).exploreRecursive(depth);
-            }
-            else{
-                gc.inspect();
+
+        if (depth > 0) {
+            System.out.println(indent + "[Container: " + getName() + "]");
+        }
+
+        for (GameComponent gc : contents) {
+            if (gc instanceof Room) {
+                ((Room) gc).exploreRecursive(depth + 1);
+            } else if (gc instanceof Item) {
+                System.out.println(indent + "  - " + gc.getName() + " (Item)");
+            } else if (gc instanceof Puzzles) {
+                if (!((Puzzles) gc).isSolved()) {
+                    System.out.println(indent + "  - Puzzle found");
+                }
             }
         }
     }
@@ -176,4 +183,3 @@ public void exploreRecursive(int depth){
 }
 
 }
-
