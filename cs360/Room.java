@@ -37,17 +37,21 @@ public class Room extends GameComponent {
         return name;
     }
 
-   public void inspect() {
+public void inspect() {
 
     System.out.println("\n=== ROOM: " + name + " ===");
+
+    /* ===== Connected rooms ===== */
     if (connectedRooms.isEmpty()) {
         System.out.println("No connected rooms.");
     } else {
-        System.out.println("Connected rooms:");
+        System.out.println("Next room:");
         for (Room r : connectedRooms) {
             System.out.println("- " + r.getName());
         }
     }
+
+    /* ===== Contents ===== */
     boolean hasContent = false;
     System.out.println("\nContents:");
 
@@ -60,8 +64,11 @@ public class Room extends GameComponent {
         }
         else if (gc instanceof Puzzles) {
             hasContent = true;
-            System.out.println("- Puzzle:");
-            gc.inspect();
+            Puzzles p = (Puzzles) gc;
+
+            if (!p.isSolved()) {   
+                System.out.println("- Puzzle found:");
+            }
         }
     }
 
@@ -71,6 +78,21 @@ public class Room extends GameComponent {
 }
 
 
+public void exploreRecursive(int depth){
+        String indent = "";
+        for(int i = 0; i < depth; i++){
+            indent += " ";
+        }
+        System.out.println(indent + "The Room: "+ getName());
+        for(GameComponent gc : contents){
+            if(gc instanceof Room){
+                ((Room)gc).exploreRecursive(depth);
+            }
+            else{
+                gc.inspect();
+            }
+        }
+    }
   
     public int maxDepthRecursive() {
         int maxDepth = 0;
@@ -132,4 +154,26 @@ public class Room extends GameComponent {
         }
         return null;
     }
+    
+    public Puzzles findPuzzleRecursive() {
+
+    for (GameComponent gc : contents) {
+
+        if (gc instanceof Puzzles) {
+            return (Puzzles) gc;
+        }
+
+        if (gc instanceof Room) {
+            Puzzles found =
+                    ((Room) gc).findPuzzleRecursive();
+            if (found != null) {
+                return found;
+            }
+        }
+    }
+
+    return null;
 }
+
+}
+

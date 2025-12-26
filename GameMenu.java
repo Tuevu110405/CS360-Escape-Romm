@@ -4,7 +4,7 @@ import java.util.Scanner;
 public class GameMenu {
     private Player player;
     private Scanner scanner;
-   
+
     public GameMenu(Player player) {
         this.player = player;
         this.scanner = new Scanner(System.in);
@@ -27,7 +27,8 @@ public class GameMenu {
     }
 
     private void handleCommand(String input) throws Exception {
-        if (input.isEmpty()) return;
+        if (input.isEmpty())
+            return;
 
         String[] parts = input.split(" ", 2);
         String command = parts[0].toLowerCase();
@@ -36,13 +37,11 @@ public class GameMenu {
 
             case "look":
                 player.getCurrentRoom().inspect();
-                player.getCurrentRoom().exploreRecursive(0);
                 break;
 
             case "move":
                 requireArg(parts, "move <roomName>");
-                Room nextRoom =
-                        player.getCurrentRoom().getConnectedRoom(parts[1]);
+                Room nextRoom = player.getCurrentRoom().getConnectedRoom(parts[1]);
                 player.moveTo(nextRoom);
                 break;
 
@@ -52,9 +51,8 @@ public class GameMenu {
 
             case "pickup":
                 requireArg(parts, "pickup <itemName>");
-                Item item =
-                        player.getCurrentRoom()
-                              .removeItemByName(parts[1]);
+                Item item = player.getCurrentRoom()
+                        .removeItemByName(parts[1]);
 
                 if (item == null)
                     throw new Exception("Item not found");
@@ -83,17 +81,39 @@ public class GameMenu {
         }
     }
 
-    private void solvePuzzle() throws Exception {
-        Puzzles puzzle = player.getCurrentRoom().getpuzzle();
+   private void solvePuzzle() throws Exception {
 
-        if (puzzle == null)
-            throw new Exception("No puzzle in this room");
+    Puzzles puzzle = player.getCurrentRoom().findPuzzleRecursive();
+
+    if (puzzle == null) {
+        throw new Exception("No puzzle found in the current room.");
+    }
+
+    int attempts = 0;
+    boolean solved = false;
+    puzzle.inspect();
+    while (attempts < 3 && !solved) {
+
+        if (attempts == 2) {
+            System.out.println("You have 1 last chance!");
+        }
 
         System.out.print("Enter answer: ");
         String answer = scanner.nextLine();
 
-        puzzle.attemptSolve(answer);
+        attempts++;
+
+        solved = puzzle.attemptSolve(answer);
     }
+
+    if (!solved) {
+        System.out.println("Game Over! You failed to solve the puzzle.");
+    }
+    else {
+        System.out.println("Congratulations! You solved the puzzle!");
+    }
+}
+
 
     private void requireArg(String[] parts, String usage)
             throws InvalidCommandException {
