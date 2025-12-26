@@ -36,6 +36,7 @@ public class GameMenu {
 
             case "look":
                 player.getCurrentRoom().inspect();
+                player.getCurrentRoom().exploreRecursive(0);
                 break;
 
             case "move":

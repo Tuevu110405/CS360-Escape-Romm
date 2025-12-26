@@ -37,37 +37,41 @@ public class Room extends GameComponent {
         return name;
     }
 
-    public void inspect() {
-        System.out.println("The name of the room is: " + name);
-    }
+   public void inspect() {
 
-    public void exploreRecursive(int depth) {
-        String indent = "";
-        for (int i = 0; i < depth; i++) {
-            indent += " ";
-        }
-        System.out.println(indent + "The Room: " + getName());
-        for (GameComponent gc : contents) {
-            if (gc instanceof Room) {
-                ((Room) gc).exploreRecursive(depth);
-            } else {
-                gc.inspect();
-            }
+    System.out.println("\n=== ROOM: " + name + " ===");
+    if (connectedRooms.isEmpty()) {
+        System.out.println("No connected rooms.");
+    } else {
+        System.out.println("Connected rooms:");
+        for (Room r : connectedRooms) {
+            System.out.println("- " + r.getName());
         }
     }
+    boolean hasContent = false;
+    System.out.println("\nContents:");
 
-    public boolean containsItemRecursive(String itemName) {
-        for (GameComponent gc : contents) {
-            if (gc.name.equals(itemName)) {
-                return true;
-            }
-            if (gc instanceof Room) {
-                ((Room) gc).containsItemRecursive(itemName);
-            }
+    for (GameComponent gc : contents) {
+
+        if (gc instanceof Item) {
+            hasContent = true;
+            Item item = (Item) gc;
+            System.out.println("- Item: " + item.getName());
         }
-        return false;
+        else if (gc instanceof Puzzles) {
+            hasContent = true;
+            System.out.println("- Puzzle:");
+            gc.inspect();
+        }
     }
 
+    if (!hasContent) {
+        System.out.println("None");
+    }
+}
+
+
+  
     public int maxDepthRecursive() {
         int maxDepth = 0;
         for (GameComponent gc : contents) {
